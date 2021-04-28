@@ -114,14 +114,14 @@ public class GenericUtil {
 	 * @return String
 	 * @throws IOException
 	 */
-	public String takeScreenShot(String methodName) throws IOException {
+	/*public String takeScreenShot(String methodName) throws IOException {
 		EventFiringWebDriver event=new EventFiringWebDriver(BaseTest.staticDriver);
 		File src=event.getScreenshotAs(OutputType.FILE);
 		String path=PathConstant.screenshotpath+methodName+".PNG";
 		File dest=new File(path);
 		Files.copy(src, dest);
 		return path;
-	}
+	}*/
 	/**
 	 * to wait till text appears in element
 	 * @param driver

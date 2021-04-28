@@ -91,13 +91,13 @@ public class ListnerImp implements ITestListener{
 		test.log(Status.FAIL, result.getThrowable());
 		String date=new JavaUtil().currentdate().replace(" ", "_").replace(":", "_");
 		
-		try {
+		/*try {
 			GenericUtil utils=new GenericUtil();
 			String Path = utils.takeScreenShot(result.getMethod().getMethodName()+date);
 			test.addScreenCaptureFromPath(Path);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		/*Stop Recording create video File*/
 		String base64String = ((CanRecordScreen)BaseTest.staticDriver).stopRecordingScreen();
