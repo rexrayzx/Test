@@ -35,24 +35,28 @@ jobs:
               curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
                     sudo apt install nodejs
       - run:
-          name: Install appium server
+          name: Print Node and NPM Version
           command: |
-              sudo npm update -g
-              sudo npm install -g appium
+                    node --version
+                    npm --version
+      - run:
+          name: Install Appium
+          command: |
+                    cd
+                    npm install appium@1.14.0
+      - run:
+           name: Start Appium
+           command: cd ; appium
+           background: true
+      - run:
+                name: Wait Until Appium Boot
+                command: sleep 30
 
       - save_cache:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
-     
-      - run:
-          name: Start appium
-          command: appium &
-          background: true
       
-      - run:
-          name: Wait Until Appium Boot
-          command: sleep 30
      
         # run tests!
       - run: mvn clean
