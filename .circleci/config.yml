@@ -33,7 +33,6 @@ jobs:
           command: |
               sudo npm update -g
               sudo npm install -g appium
-              sudo npm install -g wd
 
       - save_cache:
           paths:
