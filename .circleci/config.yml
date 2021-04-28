@@ -46,7 +46,7 @@ jobs:
                     npm install appium@1.14.0
       - run:
            name: Start Appium
-           command: cd ; appium
+           command: cd ; appium &
            background: true
       - run:
                 name: Wait Until Appium Boot
