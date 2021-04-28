@@ -1,0 +1,5 @@
+com\eezy\logintest\LoginTest.class
+com\eezy\logintest\LoginUsingMobileNumberTest.class
+com\eezy\logintest\StartNewPlanTest.class
+com\eezy\logintest\LoginRedirectingToSignInTest.class
+com\eezy\logintest\LogOutTest.class
