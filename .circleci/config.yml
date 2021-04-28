@@ -29,6 +29,12 @@ jobs:
       - run: mvn dependency:go-offline
       
       - run:
+          name: Install Node
+          command: |
+              cd
+              curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+                    sudo apt install nodejs
+      - run:
           name: Install appium server
           command: |
               sudo npm update -g
@@ -43,6 +49,11 @@ jobs:
           name: Start appium
           command: appium &
           background: true
+      
+      - run:
+          name: Wait Until Appium Boot
+          command: sleep 30
+     
         # run tests!
       - run: mvn clean
       - run: mvn test
