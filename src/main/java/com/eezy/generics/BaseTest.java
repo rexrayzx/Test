@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.net.InetAddress;
 
 import org.apache.commons.codec.binary.Base64;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -85,7 +86,7 @@ public class BaseTest {
 		bootStrapPort = Integer.toString(getPort());
 		chromePort = Integer.toString(getPort());
 		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder().withAppiumJS(new File(getNodePath()))
-		.usingDriverExecutable(new File(getNodePath())).withIPAddress(IP_ADDRESS).usingPort(port)
+		.usingDriverExecutable(new File(getNodePath())).withIPAddress(getIP()).usingPort(port)
 		.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER, bootStrapPort)
 		.withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, chromePort));
 		service.start();
@@ -241,5 +242,8 @@ public class BaseTest {
 		}
 		return actualJSPath;
 		}
-	
+	private static String getIP() throws UnknownHostException { 
+		InetAddress addr = InetAddress.getLocalHost();
+		return addr.getHostAddress();
+	}
 }
