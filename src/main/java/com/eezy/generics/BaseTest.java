@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.openqa.selenium.remote.DesiredCapabilities;
