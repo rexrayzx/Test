@@ -86,7 +86,7 @@ public class BaseTest {
 		port = getPort();
 		bootStrapPort = Integer.toString(getPort());
 		chromePort = Integer.toString(getPort());
-		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder().withAppiumJS(new File(getNodePath()))
+		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder().withAppiumJS(new File(getJSPath()))
 		.usingDriverExecutable(new File(getNodePath())).withIPAddress(getIP()).usingPort(port)
 		.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER, bootStrapPort)
 		.withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, chromePort));
