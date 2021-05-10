@@ -78,16 +78,10 @@ public class BaseTest {
 	@BeforeSuite
 	public void configBS() throws Exception {
 		String IP_ADDRESS = "127.0.0.1";
-		String bootStrapPort;
-		String chromePort;
 		int port;
 		port = getPort();
-		bootStrapPort = Integer.toString(getPort());
-		chromePort = Integer.toString(getPort());
-		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder().withAppiumJS(new File(getNodePath()))
-		.usingDriverExecutable(new File(getNodePath())).withIPAddress(IP_ADDRESS).usingPort(port)
-		.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER, bootStrapPort)
-		.withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, chromePort));
+		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder().withAppiumJS(new File(getJSPath()))
+		.usingDriverExecutable(new File(getNodePath())).withIPAddress(IP_ADDRESS).usingPort(port));
 		service.start();
 	}
 	
