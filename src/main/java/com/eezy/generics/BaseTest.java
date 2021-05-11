@@ -116,7 +116,7 @@ public class BaseTest {
 		cap.setCapability("UDID", file.getDataFromPropertFile("UDID"));
 		cap.setCapability("autoGrantPermissions", true);
 		//cap.setCapability("noReset", true);
-		URL url=new URL(file.getDataFromPropertFile("url"));
+		URL url=new URL(getIP()+":4723/wd/hub");
 		
 		driver=new AndroidDriver (url,cap);
 		staticDriver=driver;
@@ -128,7 +128,7 @@ public class BaseTest {
 			caps.setCapability("appPackage", file.getDataFromPropertFile("appPackage"));
 			caps.setCapability("app", "./App//eezy-uat-2.apk");
 			caps.setCapability("autoGrantPermissions", true);
-			URL url=new URL(file.getDataFromPropertFile("url"));
+			URL url=new URL(getIP()+":4723/wd/hub");
 		        driver = new AndroidDriver(url, caps);
 		        staticDriver=driver;
 		        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
