@@ -77,7 +77,7 @@ public class BaseTest {
 	 * To start the Appium server
 	 * @throws Exception 
 	 */
-	@BeforeSuite
+	/*@BeforeSuite
 	public void configBS() throws Exception {
 		String IP_ADDRESS = "127.0.0.1";
 		String bootStrapPort;
@@ -91,7 +91,7 @@ public class BaseTest {
 		.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER, bootStrapPort)
 		.withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, chromePort));
 		service.start();
-	}
+	}*/
 	
 	
 	/**
