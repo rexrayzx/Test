@@ -127,6 +127,7 @@ public class BaseTest {
 			caps.setCapability("appPackage", file.getDataFromPropertFile("appPackage"));
 			caps.setCapability("app", "./App//eezy-uat-2.apk");
 			caps.setCapability("autoGrantPermissions", true);
+			caps.setCapability("deviceName", "appium-emulator");
 			URL url=new URL("http://0.0.0.0:4723/wd/hub");
 		        driver = new AndroidDriver(url, caps);
 		        staticDriver=driver;
