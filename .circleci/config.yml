@@ -1,61 +1,12 @@
 
 version: 2
 jobs:
-  android-test:
-    macos:
-      xcode: "11.2.0"
-    working_directory: ~/repo/App
-    steps:
-      - checkout:
-          path: ~/repo
-
-      - run:
-          name: set ANDROID_SDK_ROOT
-          command: |
-            echo 'export ANDROID_SDK_ROOT=$HOME/android-tools'  >> $BASH_ENV
-
-      - restore_cache:
-          key: android=tools-v1-{{ checksum "scripts/install-android-tools.sh" }}-{{ arch }}
-
-      - run:
-          name: install android tools
-          command: |
-            sh scripts/install-android-tools.sh
-            echo 'export PATH=$ANDROID_SDK_ROOT/tools/bin:$PATH'  >> $BASH_ENV
-            echo 'export PATH=$ANDROID_SDK_ROOT/tools:$PATH'  >> $BASH_ENV
-            echo 'export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH'  >> $BASH_ENV
-            echo 'export PATH=$ANDROID_SDK_ROOT/emulator:$PATH'  >> $BASH_ENV
-            source $BASH_ENV
-            sdkmanager --list
-
-      - save_cache:
-          key: android=tools-v1-{{ checksum "scripts/install-android-tools.sh" }}-{{ arch }}
-          paths:
-            - /Users/distiller/android-tools
-
-      - run:
-          name: create AVD
-          command: make create-avd
-
-      - run:
-          name: start AVD
-          command: emulator-headless -avd android-tablet
-          background: true
-
-      - run:
-          name: wait for emulator
-          command: adb wait-for-device shell 'while [[ -z $(getprop dev.bootcomplete) ]]; do sleep 1; done;'
-
-      - run: adb shell screencap -p > screenshots/before.png
-
-      # (insert testing here)
-
-      - store_artifacts:
-          path: screenshots
   build:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk-node
+      - image: appium/appium
+      - image: javamvn
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -97,6 +48,8 @@ jobs:
       - run:
                 name: Wait Until Appium Boot
                 command: sleep 30
+      - run:
+
       - save_cache:
           paths:
             - ~/.m2
