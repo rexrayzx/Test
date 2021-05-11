@@ -106,7 +106,6 @@ public class BaseTest {
 		
 		if(file.getDataFromPropertFile("enviroment").equalsIgnoreCase("realDevice")) {
 		DesiredCapabilities cap=new DesiredCapabilities();
-		cap.setCapability("app", "./App//eezy-uat-2.apk");
 		cap.setCapability("deviceName", file.getDataFromPropertFile("deviceName"));
 		cap.setCapability("platformVersion", file.getDataFromPropertFile("platformVersion"));
 		cap.setCapability("appActivity", file.getDataFromPropertFile("appActivity"));
