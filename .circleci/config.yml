@@ -5,6 +5,8 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk-node
+      - image: appium/appium
+      - image: javamvn
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -46,8 +48,6 @@ jobs:
       - run:
                 name: Wait Until Appium Boot
                 command: sleep 30
-      - run:
-
       - save_cache:
           paths:
             - ~/.m2
