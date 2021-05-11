@@ -128,7 +128,8 @@ public class BaseTest {
 			caps.setCapability("appPackage", file.getDataFromPropertFile("appPackage"));
 			caps.setCapability("app", "./App//eezy-uat-2.apk");
 			caps.setCapability("autoGrantPermissions", true);
-		        driver = new AndroidDriver(service.getUrl(), caps);
+			URL url=new URL(file.getDataFromPropertFile("url"));
+		        driver = new AndroidDriver(url, caps);
 		        staticDriver=driver;
 		        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			}
