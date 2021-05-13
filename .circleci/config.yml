@@ -1,19 +1,45 @@
 
 version: 2
 jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk-node
-      - image: appium/appium-emulator
-      
-      
+  android:
+    macos:  # indicate that we are using the macOS executor
+      xcode: 11.7.0
     environment:
-      # Customize the JVM maximum heap limit
+      JAVA_HOME: /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+      ANDROID_SDK_ROOT: /usr/local/Caskroom/android-sdk/4333796
       MAVEN_OPTS: -Xmx3200m
-      
     steps:
       - checkout
+      - run: npm install -g react-native-cli
+      - run: |
+          brew install --cask homebrew/cask-versions/adoptopenjdk8
+          brew install gradle
+          brew install android-sdk
+          brew install android-platform-tools
+          brew install --cask intel-haxm
+      - run: |
+          export PATH=$JAVA_HOME/bin:$PATH
+          echo "y" | sdkmanager --install 'system-images;android-28;google_apis;x86_64'
+          echo "no" | avdmanager create avd -n test_device -k 'system-images;android-28;google_apis;x86_64' --force
+          emulator -list-avds
+          ls -la /Users/$USER/.android/avd
+          sdkmanager "platform-tools" "platforms;android-28"
+      - run:
+          name: Starting emulator in background
+          command: export ANDROID_AVD_HOME=/Users/$USER/.android/avd && export ANDROID_HOME=$ANDROID_SDK_ROOT && $ANDROID_HOME/emulator/emulator -avd test_device -skin 1080x1920 -memory 1024 -engine qemu2 -netfast -no-audio -no-snapshot -accel on
+          background: true
+      - run: |
+          adb wait-for-device
+          adb devices
+          echo "Emulator started"
+      - run: |
+          rm -rf node_modules
+          npm cache clean --force
+          rm -rf package-lock.json
+      - run: |
+          npm update -g
+          npm install appium
+          npm install wd
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -27,14 +53,20 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
-     
+      - run: 
+          name: Start appium server
+          command: appium
         # run tests!
       - run: mvn clean
       - run: mvn test
       - store_test_results:
           path: target/surefire-reports
 
-
+workflows:
+  version: 2
+  test:
+    jobs:
+      - android
 
 
   
