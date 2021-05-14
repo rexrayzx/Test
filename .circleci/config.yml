@@ -51,7 +51,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run: 
           name: Start appium server
-          command: appium
+          command: appium &
         # run tests!
       - run: mvn clean
       - run: mvn test
