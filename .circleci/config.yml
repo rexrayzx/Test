@@ -63,7 +63,10 @@ workflows:
   test:
     jobs:
       - build
-      - android
+      - android:
+          requires:
+            - build
+            
 
 
   
