@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     machine:
-      image: android:202102-0
+      image: android:202102-01
     steps:
       - checkout
       - run:
