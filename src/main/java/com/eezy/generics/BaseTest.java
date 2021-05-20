@@ -127,7 +127,7 @@ public class BaseTest {
 			caps.setCapability("appPackage", file.getDataFromPropertFile("appPackage"));
 			caps.setCapability("app", "https://drive.google.com/file/d/1WYbSD3urwmu9PrEltimMLeWQXE3dv51y/view?usp=sharing");
 			caps.setCapability("autoGrantPermissions", true);
-			//caps.setCapability("deviceName", "appium-emulator");
+			caps.setCapability("deviceName", "appium-emulator");
 			URL url=new URL("http://0.0.0.0:4723/wd/hub");
 		        driver = new AndroidDriver(url, caps);
 		        staticDriver=driver;
