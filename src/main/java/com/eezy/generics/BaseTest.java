@@ -125,7 +125,7 @@ public class BaseTest {
 			caps.setCapability("appActivity", file.getDataFromPropertFile("appActivity"));
 			caps.setCapability("automationName", file.getDataFromPropertFile("automationName"));
 			caps.setCapability("appPackage", file.getDataFromPropertFile("appPackage"));
-			//caps.setCapability("app", PathConstant.currentpath+"//App//eezy-uat-2.apk");
+			caps.setCapability("app", "https://drive.google.com/file/d/1WYbSD3urwmu9PrEltimMLeWQXE3dv51y/view?usp=sharing");
 			caps.setCapability("autoGrantPermissions", true);
 			//caps.setCapability("deviceName", "appium-emulator");
 			URL url=new URL("http://0.0.0.0:4723/wd/hub");
