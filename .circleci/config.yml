@@ -1,36 +1,12 @@
-
-version: 2.1
+version: 2
 jobs:
   build:
-    machine:
-      image: android:202102-01
-    steps:
-      - checkout
-      - run:
-          name: Create avd
-          command: |
-            SYSTEM_IMAGES="system-images;android-29;default;x86"
-            sdkmanager "$SYSTEM_IMAGES"
-            echo "no" | avdmanager --verbose create avd -n test -k "$SYSTEM_IMAGES"
-      - run:
-          name: Launch emulator
-          command: |
-            emulator -avd test -delay-adb -verbose -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-          background: true
-      - run:
-          name: Wait for emulator to start
-          command: |
-            circle-android wait-for-boot
-      - run:
-          name: Disable emulator animations
-          command: |
-            adb shell settings put global window_animation_scale 0.0
-            adb shell settings put global transition_animation_scale 0.0
-            adb shell settings put global animator_duration_scale 0.0
-  android:
     docker:
+      # specify the version you desire here
       - image: circleci/openjdk:8-jdk-node
-      - image: appium/appium
+      - image: appium/appium-emulator
+      
+      
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
@@ -44,29 +20,14 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: mvn dependency:go-offline
-
+      
+      
       - save_cache:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
-      - run: 
-          name: Start appium server
-          command: appium &
+      
+     
         # run tests!
       - run: mvn clean
       - run: mvn test
-      - store_test_results:
-          path: target/surefire-reports
-
-workflows:
-  version: 2
-  test:
-    jobs:
-      - build
-      - android:
-          requires:
-            - build
-            
-
-
-  
